@@ -1,0 +1,42 @@
+# Godot-generated cache and imported data
+.godot/
+.import/
+
+# Local Godot editor binaries (downloaded separately)
+/[Gg]odot*.exe
+
+# Local game saves and exported builds
+/save-data/
+/build/
+/builds/
+/export_templates/
+
+# Generated export configuration and credentials
+export.cfg
+export_credentials.cfg
+
+# Imported translations generated from CSV files
+*.translation
+
+# C# / Mono-generated files
+.mono/
+data_*/
+mono_crash.*.json
+
+# Local environment and editor files
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary, backup, and crash files
+*.log
+*.orig
+*.sfk
+*.tmp
+*~
+*~*.TMP

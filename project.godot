@@ -1,0 +1,49 @@
+; BREACHPOINT: ZERO HOUR
+; Godot 4.6 project configuration. Input bindings are installed and remappable at runtime.
+config_version=5
+
+[application]
+
+config/name="Breachpoint: Zero Hour"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/bg_color=Color(0.018, 0.024, 0.03, 1)
+boot_splash/image="res://splash-screen.png"
+config/icon="res://icon.png"
+
+[autoload]
+
+SettingsManager="*res://scripts/core/settings_manager.gd"
+GameManager="*res://scripts/core/game_manager.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+anti_aliasing/quality/msaa_3d=2
+environment/defaults/default_clear_color=Color(0.008, 0.012, 0.018, 1)
+
+[audio]
+
+default_bus_layout="res://default_bus_layout.tres"
+
+[physics]
+
+3d/default_gravity=9.8
+
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Actors"
+3d_physics/layer_3="Interactables"
+3d_physics/layer_4="Player"
