@@ -2,6 +2,8 @@
 
 A complete playable vertical slice of a five-operation single-player FPS, built in Godot 4.6.3 with an MIT/CC0 Kenney Starter Kit FPS foundation. The repository includes its CC0 Kenney and Quaternius assets, but does not include the Godot editor or generated builds.
 
+![breachpoint-bank](screenshots/breachpoint-bank.jpg)
+
 ## Download Godot and play on Windows
 
 1. Download the **standard Godot Engine 4.6.3 build for Windows** from the [official Godot download page](https://godotengine.org/download/windows/). This project uses GDScript, so the .NET build is not required.
