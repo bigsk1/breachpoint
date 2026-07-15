@@ -220,6 +220,20 @@ func _smoke_controller_ui() -> void:
 	start_operation("bank", "easy")
 	await get_tree().process_frame
 	await get_tree().process_frame
+	var headless_input_test := DisplayServer.get_name() == "headless"
+	if not headless_input_test:
+		assert(Input.mouse_mode == Input.MOUSE_MODE_CAPTURED)
+	var yaw_before_mouse := player.rotation.y
+	var pitch_before_mouse := player._look_pitch
+	var physical_mouse := InputEventMouseMotion.new()
+	physical_mouse.relative = Vector2(32.0, -18.0)
+	if headless_input_test:
+		player._apply_mouse_look(physical_mouse.relative)
+	else:
+		Input.parse_input_event(physical_mouse)
+	await get_tree().process_frame
+	assert(not is_equal_approx(player.rotation.y, yaw_before_mouse))
+	assert(not is_equal_approx(player._look_pitch, pitch_before_mouse))
 	assert(is_instance_valid(music) and music.playing and music.bus == &"Music")
 	var music_bus := AudioServer.get_bus_index("Music")
 	assert(music_bus >= 0)
@@ -314,7 +328,7 @@ func _smoke_controller_ui() -> void:
 	Input.parse_input_event(accept)
 	await get_tree().process_frame
 	assert(GameManager.run_active)
-	print("CONTROLLER_UI_SMOKE_OK left-stick inventory navigation, consumable and ammo use, music toggle, report navigation, and replay selection")
+	print("INPUT_UI_SMOKE_OK mouse look, left-stick inventory navigation, consumable and ammo use, music toggle, report navigation, and replay selection")
 	return_to_menu()
 	await get_tree().create_timer(0.8).timeout
 	get_tree().quit()

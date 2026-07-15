@@ -128,14 +128,27 @@ func _weapon_color(id: String) -> Color:
 func _apply_upgrades() -> void:
 	armor = GameManager.get_difficulty_value(90.0, 55.0, 35.0) + GameManager.get_upgrade_bonus("armor") * 10.0
 
+func _input(event: InputEvent) -> void:
+	if not controls_enabled or not GameManager.run_active:
+		return
+	if event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		var mouse_motion := event as InputEventMouseMotion
+		var motion: Vector2 = mouse_motion.screen_relative
+		if motion.is_zero_approx():
+			motion = mouse_motion.relative
+		_apply_mouse_look(motion)
+
+func _apply_mouse_look(motion: Vector2) -> void:
+	var sensitivity := float(SettingsManager.get_value("mouse_sensitivity", 0.11))
+	rotate_y(deg_to_rad(-motion.x * sensitivity))
+	_look_pitch = clampf(_look_pitch - deg_to_rad(motion.y * sensitivity), deg_to_rad(-86.0), deg_to_rad(86.0))
+	_mouse_delta = motion
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not controls_enabled:
 		return
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var sensitivity := float(SettingsManager.get_value("mouse_sensitivity", 0.11))
-		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
-		_look_pitch = clampf(_look_pitch - deg_to_rad(event.relative.y * sensitivity), deg_to_rad(-86.0), deg_to_rad(86.0))
-		_mouse_delta = event.relative
 	if event.is_action_pressed("flashlight"):
 		_flashlight.visible = not _flashlight.visible
 	if event.is_action_pressed("reload"):
